@@ -54,50 +54,40 @@ public class Demo {
     static FloatBuffer lightPosition;
     static FloatBuffer whiteLight;
     static FloatBuffer lModelAmbient;
-    static FloatBuffer spotDirection;
 
     private static void initGL(){
         //----------- Variables & method calls added for Lighting Test -----------//
         glEnable(GL_COLOR_MATERIAL);
-        initLightArrays();
+
+
+        matSpecular = BufferUtils.createFloatBuffer(4);
+        matSpecular.put(1.0f).put(1.0f).put(1.0f).put(1.0f).flip();
+
+        lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(-1.0f).put(1.0f).put(1.0f).put(0.0f).flip();
+
+        whiteLight = BufferUtils.createFloatBuffer(4);
+        whiteLight.put(.0f).put(1.0f).put(1.0f).put(1.0f).flip();
+
+        lModelAmbient = BufferUtils.createFloatBuffer(4);
+        lModelAmbient.put(0.5f).put(0.0f).put(0.1f).put(0.1f).flip();
+
+
         glShadeModel(GL_SMOOTH);
         glMaterial(GL_FRONT, GL_SPECULAR, matSpecular);				// sets specular material color
-        glMaterialf(GL_FRONT, GL_SHININESS, 90.0f);					// sets shininess
+        glMaterialf(GL_FRONT, GL_SHININESS, 110.0f);					// sets shininess
 
         glLight(GL_LIGHT0, GL_POSITION, lightPosition);				// sets light position
         glLight(GL_LIGHT0, GL_SPECULAR, whiteLight);				// sets specular light to white
-        glLight(GL_LIGHT0, GL_DIFFUSE, whiteLight);					// sets diffuse light to white
+        //glLight(GL_LIGHT0, GL_DIFFUSE, whiteLight);					// sets diffuse light to white
         glLightModel(GL_LIGHT_MODEL_AMBIENT, lModelAmbient);		// global ambient light
-
-        glLight(GL_LIGHT1, GL_POSITION, lightPosition);
-        glLight(GL_LIGHT1, GL_SPOT_DIRECTION,spotDirection);
-        glLight(GL_LIGHT1, GL_SPECULAR,whiteLight);
 
         glEnable(GL_LIGHTING);										// enables lighting
         glEnable(GL_LIGHT0);										// enables light0
-        glEnable(GL_LIGHT1);										// enables light0
 
         glEnable(GL_COLOR_MATERIAL);								// enables opengl to use glColor3f to define material color
         glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);			// tell opengl glColor3f effects the ambient and diffuse properties of material
         //----------- END: Variables & method calls added for Lighting Test -----------//
-    }
-
-    private static void initLightArrays(){
-
-        spotDirection = BufferUtils.createFloatBuffer(4);
-        spotDirection.put(-1.0f).put(1.0f).put(0).put(0).flip();
-
-        matSpecular = BufferUtils.createFloatBuffer(4);
-        matSpecular.put(1.0f).put(0.0f).put(.0f).put(1.0f).flip();
-
-        lightPosition = BufferUtils.createFloatBuffer(4);
-        lightPosition.put(1.0f).put(1.0f).put(1.0f).put(0.0f).flip();
-
-        whiteLight = BufferUtils.createFloatBuffer(4);
-        whiteLight.put(.4f).put(1.0f).put(.4f).put(1.0f).flip();
-
-        lModelAmbient = BufferUtils.createFloatBuffer(4);
-        lModelAmbient.put(0.5f).put(0.5f).put(0.5f).put(1.0f).flip();
     }
 
     /**

@@ -33,9 +33,6 @@ public class Camera {
         aspectRatio = 800/600;
         mouseSpeed = 1;
         speed = .1f;
-        if (GLContext.getCapabilities().GL_ARB_depth_clamp) {
-            glEnable(GL_DEPTH_CLAMP);
-        }
         glPushAttrib(GL_TRANSFORM_BIT);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
@@ -64,13 +61,11 @@ public class Camera {
             dx = speed * delta;
         }
 
-        //moveFromLook(dx,dy,dz);
         this.z += dx * (float) cos(toRadians(yaw - 90)) + dz * cos(toRadians(yaw));
         this.x -= dx * (float) sin(toRadians(yaw - 90)) + dz * sin(toRadians(yaw));
         this.y += dy * (float) sin(toRadians(pitch - 90)) + dz * sin(toRadians(pitch));
     }
 
-    /** Applies the camera translations and rotations to GL_MODELVIEW. */
     public void apply() {
         glPushAttrib(GL_TRANSFORM_BIT);
         glMatrixMode(GL_MODELVIEW);
