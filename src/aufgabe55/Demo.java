@@ -4,7 +4,6 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -35,28 +34,16 @@ public class Demo {
         initGL();
 
         // camera
-        //camera = new EulerCamera.Builder().setAspectRatio((float) Display.getWidth() / Display.getHeight())
-        //        .setRotation(-1.12f, 0.16f, 0f).setPosition(-1.38f, 1.36f, 7.95f).setFieldOfView(60).build();
         camera = new Camera();
-        camera.applyOptimalStates();
-        camera.applyPerspectiveMatrix();
 
         long lastFrame = getTime();
-        while (!Display.isCloseRequested()&&
-                !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
+        while (!Display.isCloseRequested()&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
             long time = getTime();
             int delta = (int) (time - lastFrame);
-            lastFrame = delta;
+            if (delta <= 0) delta = 1;
+            lastFrame = time;
             update(delta);
-
-            camera.processMouse(1,80,-80);
-            camera.processKeyboard(56,1,1,1);
-            if (Mouse.isButtonDown(0)) {
-                Mouse.setGrabbed(true);
-            } else if (Mouse.isButtonDown(1)) {
-                Mouse.setGrabbed(false);
-            }
-
+            camera.update(delta);
             Display.update();
             Display.sync(60); // cap fps to 60fps
         }
@@ -121,7 +108,7 @@ public class Demo {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
 
-        camera.applyTranslations();
+        camera.apply();
         object.rotation += 1;
 
         object.render();
