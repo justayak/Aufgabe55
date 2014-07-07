@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class Scene {
 
-    Object object = new Object(1,1);
+    Object object = new Object(0,0);
 
     public void init(){
 

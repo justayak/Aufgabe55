@@ -12,6 +12,7 @@ public class Object {
     public float z;
     public float rotation;
     public float width = 0.5f;
+    public float scale = 0.1f;
 
     public Object(float x, float y){
         this.x = x;
@@ -26,6 +27,7 @@ public class Object {
         // draw quad
         GL11.glPushMatrix();
         GL11.glTranslatef(x, y, 0);
+        GL11.glScalef(scale,scale,scale);
         GL11.glRotatef(rotation, 1f, 0f, 1f);
 
         GL11.glBegin(GL11.GL_QUADS);
