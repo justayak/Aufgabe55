@@ -25,15 +25,13 @@ public class Camera {
     private float aspectRatio = 1;
     private final float zNear;
     private final float zFar;
-    private float mouseSpeed, maxLookUp, maxLookDown, speed;
+    private float mouseSpeed, speed;
 
     public Camera() {
         this.zNear = 0.3f;
         this.zFar = 100;
         aspectRatio = 800/600;
         mouseSpeed = 1;
-        maxLookUp = 160;
-        maxLookDown = -160;
         speed = .1f;
         if (GLContext.getCapabilities().GL_ARB_depth_clamp) {
             glEnable(GL_DEPTH_CLAMP);
