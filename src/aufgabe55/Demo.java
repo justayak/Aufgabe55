@@ -14,6 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 /**
  * http://stackoverflow.com/questions/16652691/how-exactly-does-deferred-shading-work-in-lwjgl
+ * -Djava.library.path=lwjgl-2.9.1/native/windows
  *
  * Created by Julian on 07.07.2014.
  */
